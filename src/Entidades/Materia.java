@@ -59,5 +59,10 @@ public class Materia {
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
+
+    @Override
+    public String toString() {
+        return "Materia{" + "idMateria=" + idMateria + ", nombre=" + nombre + ", anioMateria=" + anioMateria + '}';
+    }
     
 }
