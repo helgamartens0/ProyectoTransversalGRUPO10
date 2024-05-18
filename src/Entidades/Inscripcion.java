@@ -8,10 +8,10 @@ package Entidades;
 
 public class Inscripcion {
 
-    int idInscripcion;
-    Alumno alumno;
-    Materia materia;
-    double nota;
+    private int idInscripcion;
+    private Alumno alumno;
+    private Materia materia;
+    private double nota;
 
     public Inscripcion(int idInscripcion, Alumno alumno, Materia materia, double nota) {
         this.idInscripcion = idInscripcion;
