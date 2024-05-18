@@ -5,7 +5,6 @@
  */
 package Entidades;
 
-
 public class Inscripcion {
 
     private int idInscripcion;
@@ -58,4 +57,9 @@ public class Inscripcion {
         this.nota = nota;
     }
 
+    @Override
+    public String toString() {
+        String insc = idInscripcion + " " + alumno.getApellido() + ", " + alumno.getNombre() + " " + materia.getNombre();
+        return insc;
+    }
 }
