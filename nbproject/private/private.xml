@@ -3,14 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/helma/OneDrive/Documentos/NetBeansProjects/universidadGrupo10/src/universidadgrupo10/Vistas/MenuView.java</file>
-            <file>file:/C:/Users/helma/OneDrive/Documentos/NetBeansProjects/universidadGrupo10/src/universidadgrupo10/AccesoADatos/AlumnoData.java</file>
-            <file>file:/C:/Users/helma/OneDrive/Documentos/NetBeansProjects/universidadGrupo10/src/universidadgrupo10/AccesoADatos/InscripcionData.java</file>
-            <file>file:/C:/Users/helma/OneDrive/Documentos/NetBeansProjects/universidadGrupo10/src/universidadgrupo10/Entidades/Materia.java</file>
-            <file>file:/C:/Users/helma/OneDrive/Documentos/NetBeansProjects/universidadGrupo10/src/universidadgrupo10/Entidades/Alumno.java</file>
-            <file>file:/C:/Users/helma/OneDrive/Documentos/NetBeansProjects/universidadGrupo10/src/universidadgrupo10/Entidades/Inscripcion.java</file>
-            <file>file:/C:/Users/helma/OneDrive/Documentos/NetBeansProjects/universidadGrupo10/src/universidadgrupo10/AccesoADatos/Conexion.java</file>
-            <file>file:/C:/Users/helma/OneDrive/Documentos/NetBeansProjects/universidadGrupo10/src/universidadgrupo10/AccesoADatos/MateriaData.java</file>
+            <file>file:/C:/Users/Jesica/Documents/GitHub/ProyectoTransversalGRUPO10/src/UniversidadGrupo10.java</file>
+            <file>file:/C:/Users/Jesica/Documents/GitHub/ProyectoTransversalGRUPO10/src/Entidades/Materia.java</file>
+            <file>file:/C:/Users/Jesica/Documents/GitHub/ProyectoTransversalGRUPO10/src/Entidades/Inscripcion.java</file>
+            <file>file:/C:/Users/Jesica/Documents/GitHub/ProyectoTransversalGRUPO10/src/Entidades/Alumno.java</file>
+            <file>file:/C:/Users/Jesica/Documents/GitHub/ProyectoTransversalGRUPO10/src/AccesoADatos/AlumnoData.java</file>
         </group>
     </open-files>
 </project-private>
