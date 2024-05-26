@@ -5,6 +5,7 @@
  */
 package Vistas;
 
+
 /**
  *
  * @author helma
@@ -145,15 +146,15 @@ public class MenuView extends javax.swing.JFrame {
 
     private void jmAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAlumnoActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_jmAlumnoActionPerformed
 
     private void jmiFormAlumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiFormAlumActionPerformed
         // TODO add your handling code here:
-        
+
         escritorio.removeAll();
         escritorio.repaint();
-        
+
         FormularioAlumnoView Falumno = new FormularioAlumnoView();
         Falumno.setVisible(true);
         escritorio.add(Falumno);
@@ -162,10 +163,10 @@ public class MenuView extends javax.swing.JFrame {
 
     private void jmiFormMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiFormMateriaActionPerformed
         // TODO add your handling code here:
-        
+
         escritorio.removeAll();
         escritorio.repaint();
-        
+
         FormularioMateriasView Fmateria = new FormularioMateriasView();
         Fmateria.setVisible(true);
         escritorio.add(Fmateria);
@@ -174,10 +175,10 @@ public class MenuView extends javax.swing.JFrame {
 
     private void jmiInscripcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiInscripcionesActionPerformed
         // TODO add your handling code here:
-        
+
         escritorio.removeAll();
         escritorio.repaint();
-        
+
         FormularioInscripcionesView Finscripciones = new FormularioInscripcionesView();
         Finscripciones.setVisible(true);
         escritorio.add(Finscripciones);
@@ -186,10 +187,10 @@ public class MenuView extends javax.swing.JFrame {
 
     private void jmiNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiNotasActionPerformed
         // TODO add your handling code here:
-        
+
         escritorio.removeAll();
         escritorio.repaint();
-        
+
         FormularioNotasView Fnotas = new FormularioNotasView();
         Fnotas.setVisible(true);
         escritorio.add(Fnotas);
@@ -198,10 +199,10 @@ public class MenuView extends javax.swing.JFrame {
 
     private void jmiAlumPorMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAlumPorMateriaActionPerformed
         // TODO add your handling code here:
-        
+
         escritorio.removeAll();
         escritorio.repaint();
-        
+
         FormularioPorMateriaView FporMateria = new FormularioPorMateriaView();
         FporMateria.setVisible(true);
         escritorio.add(FporMateria);
@@ -210,13 +211,11 @@ public class MenuView extends javax.swing.JFrame {
 
     private void jmSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmSalirActionPerformed
         // TODO add your handling code here:
-        
-        
-    }//GEN-LAST:event_jmSalirActionPerformed
+        this.dispose();
 
-    /**
-     * @param args the command line arguments
-     */
+
+    }//GEN-LAST:event_jmSalirActionPerformed
+ 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
