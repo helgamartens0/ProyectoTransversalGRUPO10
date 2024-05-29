@@ -4,17 +4,13 @@
  * and open the template in the editor.
  */
 
-//package universidadgrupo10;
+package principal;
 
 import AccesoADatos.*;
 import Entidades.*;
 import java.sql.Connection;
 import java.time.LocalDate;
 
-/**
- *
- * @author helma
- */
 public class UniversidadGrupo10 {
 
     public static void main(String[] args) {

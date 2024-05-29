@@ -212,8 +212,6 @@ public class MenuView extends javax.swing.JFrame {
     private void jmSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmSalirActionPerformed
         // TODO add your handling code here:
         this.dispose();
-
-
     }//GEN-LAST:event_jmSalirActionPerformed
  
     public static void main(String args[]) {
