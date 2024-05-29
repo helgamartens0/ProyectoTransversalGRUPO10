@@ -21,8 +21,9 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
 
     private TreeSet<Alumno> alumnos;
 
-    public FormularioAlumnoView() {
+    public FormularioAlumnoView(TreeSet<Alumno> alumnos) {
         initComponents();
+        this.alumnos = alumnos;
     }
 
     @SuppressWarnings("unchecked")
@@ -73,8 +74,19 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
         jlFechaNac.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlFechaNac.setText("Fecha de Nacimiento");
 
+        jtDNI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtDNIActionPerformed(evt);
+            }
+        });
+
         jbNuevo.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jbNuevo.setText("Nuevo");
+        jbNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbNuevoActionPerformed(evt);
+            }
+        });
 
         jbGuardar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jbGuardar.setText("Guardar");
@@ -216,6 +228,14 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
         }
 
     }//GEN-LAST:event_jbBuscarActionPerformed
+
+    private void jtDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtDNIActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtDNIActionPerformed
+
+    private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbNuevoActionPerformed
 
     private Alumno buscarPorDni(int dni) {
         for (Alumno alumno : alumnos) {

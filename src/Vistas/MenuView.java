@@ -5,16 +5,16 @@
  */
 package Vistas;
 
+import Entidades.Alumno;
+import java.util.TreeSet;
 
-/**
- *
- * @author helma
- */
 public class MenuView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MenuView
-     */
+    private TreeSet<Alumno> listaAlumnos = new TreeSet<>();
+
+    public TreeSet<Alumno> getListaAlumno() {
+        return listaAlumnos;
+    }
     public MenuView() {
         initComponents();
     }
@@ -155,7 +155,7 @@ public class MenuView extends javax.swing.JFrame {
         escritorio.removeAll();
         escritorio.repaint();
 
-        FormularioAlumnoView Falumno = new FormularioAlumnoView();
+        FormularioAlumnoView Falumno = new FormularioAlumnoView(listaAlumnos);
         Falumno.setVisible(true);
         escritorio.add(Falumno);
         escritorio.moveToFront(Falumno);
