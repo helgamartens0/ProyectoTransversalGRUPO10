@@ -35,6 +35,7 @@ public class FormularioNotasView extends javax.swing.JInternalFrame {
         jcbAlumno = new javax.swing.JComboBox<>();
         jlCargaDeNotas = new javax.swing.JLabel();
 
+        setClosable(true);
         setTitle("Carga de Notas");
 
         jtTabla.setModel(new javax.swing.table.DefaultTableModel(

@@ -42,6 +42,7 @@ public class FormularioMateriasView extends javax.swing.JInternalFrame {
         jbGuardar = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
 
+        setClosable(true);
         setTitle("Materia");
 
         jlMateria.setFont(new java.awt.Font("Dubai Medium", 3, 18)); // NOI18N

@@ -9,7 +9,6 @@ import Entidades.Alumno;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.Set;
 import java.util.TreeSet;
 import javax.swing.JOptionPane;
 
@@ -48,6 +47,7 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
         jdcFechaNac = new com.toedter.calendar.JDateChooser();
         jrbEstado2 = new javax.swing.JRadioButton();
 
+        setClosable(true);
         setTitle("Alumno");
 
         jlAlumno.setFont(new java.awt.Font("Dubai Medium", 3, 18)); // NOI18N
