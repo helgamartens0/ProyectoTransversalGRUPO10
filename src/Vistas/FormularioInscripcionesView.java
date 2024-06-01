@@ -74,6 +74,11 @@ public class FormularioInscripcionesView extends javax.swing.JInternalFrame {
         jbBorrar.setText("Borrar Inscripcion");
 
         jbSalir.setText("Salir");
+        jbSalir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbSalirMouseClicked(evt);
+            }
+        });
 
         jrbMInscriptas.setText("Materias Inscriptas");
 
@@ -143,6 +148,11 @@ public class FormularioInscripcionesView extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbSalirMouseClicked
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jbSalirMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

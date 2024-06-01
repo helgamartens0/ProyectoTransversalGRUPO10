@@ -7,6 +7,7 @@ package Vistas;
 
 import Entidades.Alumno;
 import java.util.TreeSet;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -120,9 +121,9 @@ public class MenuView extends javax.swing.JFrame {
         jMenuBar1.add(jMenu4);
 
         jMenu5.setText("SALIR");
-        jMenu5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu5ActionPerformed(evt);
+        jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu5MouseClicked(evt);
             }
         });
         jMenuBar1.add(jMenu5);
@@ -208,10 +209,13 @@ public class MenuView extends javax.swing.JFrame {
         escritorio.moveToFront(FporMateria);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
-    private void jMenu5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu5ActionPerformed
+    private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
         // TODO add your handling code here:
-        this.dispose();
-    }//GEN-LAST:event_jMenu5ActionPerformed
+        int confirm = JOptionPane.showConfirmDialog(null, "Desea salir del menu ?","MENU", JOptionPane.YES_NO_OPTION);
+        
+        if(confirm==0){
+            dispose();}
+    }//GEN-LAST:event_jMenu5MouseClicked
 
     /**
      * @param args the command line arguments
