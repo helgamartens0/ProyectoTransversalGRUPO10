@@ -192,7 +192,7 @@ public class InscripcionData {
             ps.setInt(2, idAlumno);
             ps.setInt(3, idMateria);
             int resultado = ps.executeUpdate();
-            System.out.println("Resultado de la actualización: " + resultado); // Debugging
+            System.out.println("Resultado de la actualización: " + resultado); // Debería ser mayor que 0
             return resultado > 0;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla inscripcion. " + ex.getMessage());

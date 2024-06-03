@@ -171,35 +171,34 @@ public class FormularioNotasView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jcbAlumnoActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-        // TODO add your handling code here:
-        Alumno selec = (Alumno) jcbAlumno.getSelectedItem();
-        int cantF = jtTabla.getRowCount();
+       Alumno selec = (Alumno) jcbAlumno.getSelectedItem();
+    int cantF = jtTabla.getRowCount();
 
-        for (int i = 0; i < cantF; i++) {
-            int idMateria = (Integer) jtTabla.getValueAt(i, 0);
-            String nombreMateria = (String) jtTabla.getValueAt(i, 1);
-            Double nota = null;
+    for (int i = 0; i < cantF; i++) {
+        int idMateria = (Integer) jtTabla.getValueAt(i, 0);
+        String nombreMateria = (String) jtTabla.getValueAt(i, 1);
+        Double nota = null;
 
-            try {
-                nota = Double.parseDouble(jtTabla.getValueAt(i, 2).toString());
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Nota inválida para la materia " + nombreMateria);
-                continue;
-            }
-
-            if (nota != null) {
-                System.out.println("Actualizando nota: Alumno ID: " + selec.getIdAlumno() + ", Materia ID: " + idMateria + ", Nota: " + nota);
-                boolean actualizado = inscData.actualizarNota(selec.getIdAlumno(), idMateria, nota);
-                if (!actualizado) {
-                    JOptionPane.showMessageDialog(this, "Error al actualizar la nota de la materia " + nombreMateria);
-                } else {
-                    System.out.println("Nota actualizada exitosamente.");
-                }
-            }
+        try {
+            nota = Double.parseDouble(jtTabla.getValueAt(i, 2).toString());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Nota inválida para la materia " + nombreMateria);
+            continue;
         }
 
-        JOptionPane.showMessageDialog(this, "Notas actualizadas exitosamente.");
-    
+        if (nota != null) {
+            System.out.println("Actualizando nota: Alumno ID: " + selec.getIdAlumno() + ", Materia ID: " + idMateria + ", Nota: " + nota);
+            boolean actualizado = inscData.actualizarNota(selec.getIdAlumno(), idMateria, nota);
+            if (!actualizado) {
+                JOptionPane.showMessageDialog(this, "Error al actualizar la nota de la materia " + nombreMateria);
+            } else {
+                System.out.println("Nota actualizada exitosamente.");
+            }
+        }
+    }
+
+    JOptionPane.showMessageDialog(this, "Notas actualizadas exitosamente.");
+
     }//GEN-LAST:event_jbGuardarActionPerformed
     
 
