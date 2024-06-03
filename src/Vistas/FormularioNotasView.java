@@ -9,6 +9,7 @@ import AccesoADatos.AlumnoData;
 import AccesoADatos.InscripcionData;
 import AccesoADatos.MateriaData;
 import Entidades.Alumno;
+import Entidades.Inscripcion;
 import Entidades.Materia;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class FormularioNotasView extends javax.swing.JInternalFrame {
     private List<Alumno> listaA;
     private List<Materia> listaM;
 
+    private List<Inscripcion> listaI;
     private InscripcionData inscData;
     private AlumnoData aData;
     private MateriaData mData;
@@ -33,9 +35,9 @@ public class FormularioNotasView extends javax.swing.JInternalFrame {
     public FormularioNotasView() {
         initComponents();
         aData = new AlumnoData();
+        inscData = new InscripcionData();
         listaA = aData.listarAlumnos();
         modelo = new DefaultTableModel();
-
         cargaAlumnos();
         armarCabeceraTabla();
     }
@@ -213,14 +215,11 @@ public class FormularioNotasView extends javax.swing.JInternalFrame {
         jtTabla.setModel(modelo);
     }
 
-    private void cargaDatosInscriptas() {
-        //borrarFilasTabla();
-        if(inscData!=null){
+private void cargaDatosInscriptas() {
         Alumno selec = (Alumno) jcbAlumno.getSelectedItem();
-        listaM = (ArrayList) inscData.obtenerMateriasCursadas(selec.getIdAlumno());
-        for (Materia m : listaM) {
-            modelo.addRow(new Object[]{m.getIdMateria(), m.getNombre(), m.getAnioMateria()});
-        }
+        listaI = inscData.obtenerInscripcionesPorAlumno(selec.getIdAlumno());
+        for (Inscripcion insc : listaI) {
+            modelo.addRow(new Object[]{insc.getMateria().getIdMateria(), insc.getMateria().getNombre(), insc.getNota()});
         }
     }
 
