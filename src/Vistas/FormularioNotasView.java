@@ -215,10 +215,12 @@ public class FormularioNotasView extends javax.swing.JInternalFrame {
 
     private void cargaDatosInscriptas() {
         //borrarFilasTabla();
+        if(inscData!=null){
         Alumno selec = (Alumno) jcbAlumno.getSelectedItem();
         listaM = (ArrayList) inscData.obtenerMateriasCursadas(selec.getIdAlumno());
         for (Materia m : listaM) {
             modelo.addRow(new Object[]{m.getIdMateria(), m.getNombre(), m.getAnioMateria()});
+        }
         }
     }
 

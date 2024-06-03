@@ -13,6 +13,7 @@ import Entidades.Inscripcion;
 import Entidades.Materia;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class FormularioInscripcionesView extends javax.swing.JInternalFrame {
@@ -95,9 +96,19 @@ public class FormularioInscripcionesView extends javax.swing.JInternalFrame {
 
         jbInscribir.setText("Inscribir");
         jbInscribir.setEnabled(false);
+        jbInscribir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbInscribirActionPerformed(evt);
+            }
+        });
 
         jbBorrar.setText("Borrar Inscripcion");
         jbBorrar.setEnabled(false);
+        jbBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBorrarActionPerformed(evt);
+            }
+        });
 
         jbSalir.setText("Salir");
         jbSalir.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -194,6 +205,35 @@ public class FormularioInscripcionesView extends javax.swing.JInternalFrame {
             jbBorrar.setEnabled(false);
         }
     }//GEN-LAST:event_jcbAlumnoActionPerformed
+
+    private void jbInscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbInscribirActionPerformed
+        // TODO add your handling code here:
+        
+        int filaSeleccionada = jtTabla.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            Alumno a = (Alumno) jcbAlumno.getSelectedItem();
+            int idMateria = (Integer) modelo.getValueAt(filaSeleccionada, 0);
+            String nombreMateria = (String) modelo.getValueAt(filaSeleccionada, 1);
+            int anio = (Integer) modelo.getValueAt(filaSeleccionada, 2);
+            Materia m = new Materia(idMateria, nombreMateria, anio, true);
+
+            Inscripcion i = new Inscripcion(a, m, 0);
+            inscData.guardarInscripcion(i);
+            borrarFilaTabla();
+        }
+    }//GEN-LAST:event_jbInscribirActionPerformed
+
+    private void jbBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBorrarActionPerformed
+        // TODO add your handling code here:
+        
+        int filaSeleccionada = jtTabla.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            Alumno a = (Alumno) jcbAlumno.getSelectedItem();
+            int idMateria = (Integer) modelo.getValueAt(filaSeleccionada, 0);
+            inscData.borrarInscripcionMateriaAlumno(a.getIdAlumno(), idMateria);
+            borrarFilaTabla();
+        }
+    }//GEN-LAST:event_jbBorrarActionPerformed
     private void jrbMInscriptasActionPerformed(java.awt.event.ActionEvent evt) {
 
         borrarFilaTabla();
@@ -210,34 +250,6 @@ public class FormularioInscripcionesView extends javax.swing.JInternalFrame {
         cargaDatosNoInscriptas();
         jbInscribir.setEnabled(true);
         jbBorrar.setEnabled(false);
-    }
-
-    private void jbInscribirActionPerformed(java.awt.event.ActionEvent evt) {
-        int filaSeleccionada = jtTabla.getSelectedRow();
-        if (filaSeleccionada != -1) {
-            Alumno a = (Alumno) jcbAlumno.getSelectedItem();
-            int idMateria = (Integer) modelo.getValueAt(filaSeleccionada, 0);
-            String nombreMateria = (String) modelo.getValueAt(filaSeleccionada, 1);
-            int anio = (Integer) modelo.getValueAt(filaSeleccionada, 2);
-            Materia m = new Materia(idMateria, nombreMateria, anio, true);
-
-            Inscripcion i = new Inscripcion(a, m, 0);
-            inscData.guardarInscripcion(i);
-            borrarFilaTabla();
-
-        }
-
-    }
-
-    private void jbBorrarActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-        int filaSeleccionada = jtTabla.getSelectedRow();
-        if (filaSeleccionada != -1) {
-            Alumno a = (Alumno) jcbAlumno.getSelectedItem();
-            int idMateria = (Integer) modelo.getValueAt(filaSeleccionada, 0);
-            inscData.borrarInscripcionMateriaAlumno(a.getIdAlumno(), idMateria);
-            borrarFilaTabla();
-        }
     }
 
     private void cargaAlumnos() {
