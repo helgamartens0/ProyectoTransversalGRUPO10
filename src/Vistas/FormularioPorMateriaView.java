@@ -5,17 +5,41 @@
  */
 package Vistas;
 
+import AccesoADatos.AlumnoData;
+import AccesoADatos.InscripcionData;
+import AccesoADatos.MateriaData;
+import Entidades.Alumno;
+import Entidades.Materia;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author busto
  */
 public class FormularioPorMateriaView extends javax.swing.JInternalFrame {
+     private List<Materia> listaM;
+    private List<Alumno> listaA;
 
+    private InscripcionData inscData;
+    private MateriaData mData;
+    private AlumnoData aData;
+
+    private DefaultTableModel modelo;
     /**
      * Creates new form FormularioPorMateriaView
      */
     public FormularioPorMateriaView() {
         initComponents();
+
+        mData = new MateriaData();
+        listaM = mData.listarMaterias();
+        modelo = new DefaultTableModel();
+        inscData = new InscripcionData();
+        aData = new AlumnoData();
+        cargarMateria();
+        armarCabeceraTabla();
     }
 
     /**
@@ -43,7 +67,11 @@ public class FormularioPorMateriaView extends javax.swing.JInternalFrame {
 
         jlMateria.setText("Materia");
 
-        jcbMateria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbMateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbMateriaActionPerformed(evt);
+            }
+        });
 
         jtTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -123,12 +151,53 @@ public class FormularioPorMateriaView extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jbSalirMouseClicked
 
+    private void jcbMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMateriaActionPerformed
+    
+        // TODO add your handling code here:
+        borrarFilaTabla();
+        cargarDatos();
+        
+    }//GEN-LAST:event_jcbMateriaActionPerformed
 
+    private void cargarMateria(){
+        for(Materia item : listaM){
+            jcbMateria.addItem(item);
+        }
+    }
+    private void cargarDatos(){
+        Materia selec= (Materia)jcbMateria.getSelectedItem();
+        listaA=(ArrayList) inscData.obtenerAlumnosXMateria(selec.getIdMateria());
+        for(Alumno a: listaA){
+            modelo.addRow(new Object[] {a.getIdAlumno(),a.getDni(),a.getApellido(),a.getNombre(), a.getFechaNac()});
+        }
+    }
+    
+    
+
+    private void armarCabeceraTabla() {
+        ArrayList<Object> filaCabecera = new ArrayList<>();
+        filaCabecera.add("ID");
+        filaCabecera.add("DNI");
+        filaCabecera.add("Apellido");
+        filaCabecera.add("Nombre");
+        filaCabecera.add("Fecha de Nacimiento");
+        for (Object it : filaCabecera) {
+            modelo.addColumn(it);
+        }
+        jtTabla.setModel(modelo);
+    }
+
+    private void borrarFilaTabla() {
+        int indice = modelo.getRowCount() - 1;
+        for (int i = indice; i >= 0; i--) {
+            modelo.removeRow(i);
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbSalir;
-    private javax.swing.JComboBox<String> jcbMateria;
+    private javax.swing.JComboBox<Materia> jcbMateria;
     private javax.swing.JLabel jlMateria;
     private javax.swing.JTable jtTabla;
     // End of variables declaration//GEN-END:variables

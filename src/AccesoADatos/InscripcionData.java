@@ -222,6 +222,7 @@ public class InscripcionData {
             
                 Alumno alumno = new Alumno();
                 alumno.setIdAlumno(resultado.getInt("idAlumno"));
+                alumno.setDni(resultado.getInt("dni"));
                 alumno.setApellido(resultado.getString("apellido"));
                 alumno.setNombre(resultado.getString("nombre"));
                 alumno.setFechaNac(resultado.getDate("fechaNacimiento").toLocalDate());
