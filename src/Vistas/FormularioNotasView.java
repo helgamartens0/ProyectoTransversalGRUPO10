@@ -84,6 +84,11 @@ public class FormularioNotasView extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jtTabla);
 
         jbGuardar.setText("GUARDAR");
+        jbGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbGuardarActionPerformed(evt);
+            }
+        });
 
         jbSalir.setText("SALIR");
         jbSalir.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -164,8 +169,10 @@ public class FormularioNotasView extends javax.swing.JInternalFrame {
         cargaDatosInscriptas();
     
     }//GEN-LAST:event_jcbAlumnoActionPerformed
-    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {
+
+    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
         // TODO add your handling code here:
+        
         Alumno selec = (Alumno) jcbAlumno.getSelectedItem();
         listaM = (ArrayList) inscData.obtenerMateriasCursadas(selec.getIdAlumno());
         modelo.setRowCount(0);
@@ -180,13 +187,19 @@ public class FormularioNotasView extends javax.swing.JInternalFrame {
             Double nota = null;
             try {
                 nota = Double.valueOf(jtTabla.getValueAt(i, 2).toString());
+                inscData.actualizarNota(selec.getIdAlumno(), idMateria, nota);
+                JOptionPane.showMessageDialog(null, "Notas actualizadas exitosamente.");
+                
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, "Nota invalida para la materia " + nombreMateria);
-            }
-            inscData.actualizarNota(selec.getIdAlumno(), idMateria, nota);
-        }
-        JOptionPane.showMessageDialog(null, "Notas actualizadas exitosamente.");
-    }
+            } catch (NullPointerException e){
+                JOptionPane.showMessageDialog(this, "Valor nulo. " +e);
+            } catch (Exception e){
+                JOptionPane.showMessageDialog(this, e);
+            }    
+        }    
+    }//GEN-LAST:event_jbGuardarActionPerformed
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
@@ -216,11 +229,17 @@ public class FormularioNotasView extends javax.swing.JInternalFrame {
     }
 
 private void cargaDatosInscriptas() {
+    
+    try {
         Alumno selec = (Alumno) jcbAlumno.getSelectedItem();
         listaI = inscData.obtenerInscripcionesPorAlumno(selec.getIdAlumno());
         for (Inscripcion insc : listaI) {
             modelo.addRow(new Object[]{insc.getMateria().getIdMateria(), insc.getMateria().getNombre(), insc.getNota()});
         }
+    } catch (Exception e) {
+        System.out.println(e);
+    }
+        
     }
 
     private void borrarFilaTabla() {
