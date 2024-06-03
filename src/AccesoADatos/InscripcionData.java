@@ -183,26 +183,21 @@ public class InscripcionData {
         }
     }
 
-    public void actualizarNota(int idAlumno, int idMateria, double nota) {
+    public boolean actualizarNota(int idAlumno, int idMateria, double nota) {
 
         String sql = "UPDATE inscripcion SET nota = ? WHERE idAlumno = ? AND idMateria = ?";
-
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-
             ps.setDouble(1, nota);
             ps.setInt(2, idAlumno);
             ps.setInt(3, idMateria);
-
             int resultado = ps.executeUpdate();
-
-            if (resultado > 0) {
-
-                JOptionPane.showMessageDialog(null, "Nota Actualizada.");
-            }
-
+            System.out.println("Resultado de la actualización: " + resultado); // Debugging
+            return resultado > 0;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla inscripcion. " + ex);
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla inscripcion. " + ex.getMessage());
+            ex.printStackTrace();
+            return false;
         }
     }
 
@@ -217,9 +212,9 @@ public class InscripcionData {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, idMateria);
             ResultSet resultado = ps.executeQuery();
-            
-            while(resultado.next()){
-            
+
+            while (resultado.next()) {
+
                 Alumno alumno = new Alumno();
                 alumno.setIdAlumno(resultado.getInt("idAlumno"));
                 alumno.setDni(resultado.getInt("dni"));
@@ -227,7 +222,7 @@ public class InscripcionData {
                 alumno.setNombre(resultado.getString("nombre"));
                 alumno.setFechaNac(resultado.getDate("fechaNacimiento").toLocalDate());
                 alumno.setActivo(resultado.getBoolean("estado"));
-                
+
                 alumnosMateria.add(alumno);
             }
 
@@ -238,4 +233,3 @@ public class InscripcionData {
         return alumnosMateria;
     }
 }
-
