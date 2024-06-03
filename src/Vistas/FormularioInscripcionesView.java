@@ -5,18 +5,38 @@
  */
 package Vistas;
 
-/**
- *
- * @author busto
- */
+import AccesoADatos.AlumnoData;
+import AccesoADatos.InscripcionData;
+import AccesoADatos.MateriaData;
+import Entidades.Alumno;
+import Entidades.Inscripcion;
+import Entidades.Materia;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
+
 public class FormularioInscripcionesView extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form InscripcionesView
-     */
+     private List<Materia> listaM;
+    private List<Alumno> listaA;
+
+    private InscripcionData inscData;
+    private MateriaData mData;
+    private AlumnoData aData;
+
+    private DefaultTableModel modelo;
+
     public FormularioInscripcionesView() {
         initComponents();
-    }
+
+        aData = new AlumnoData();
+        listaA = aData.listarAlumnos();
+        modelo = new DefaultTableModel();
+        cargaAlumnos();
+        armarCabeceraTabla();
+    } 
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,8 +74,6 @@ public class FormularioInscripcionesView extends javax.swing.JInternalFrame {
         lbListadoMaterias.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbListadoMaterias.setText("Listado de Materias");
 
-        jcbAlumno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jtTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -70,8 +88,10 @@ public class FormularioInscripcionesView extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jtTabla);
 
         jbInscribir.setText("Inscribir");
+        jbInscribir.setEnabled(false);
 
         jbBorrar.setText("Borrar Inscripcion");
+        jbBorrar.setEnabled(false);
 
         jbSalir.setText("Salir");
         jbSalir.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -153,6 +173,92 @@ public class FormularioInscripcionesView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jbSalirMouseClicked
+ private void jrbMInscriptasActionPerformed(java.awt.event.ActionEvent evt) {                                               
+
+        borrarFilaTabla();
+        jrbNoInscriptas.setSelected(false);
+        cargaDatosInscriptas();
+        jbBorrar.setEnabled(true);
+        jbInscribir.setEnabled(false);
+    }                                              
+
+    private void jrbNoInscriptasActionPerformed(java.awt.event.ActionEvent evt) {                                                
+
+        borrarFilaTabla();
+        jrbMInscriptas.setSelected(false);
+        cargaDatosNoInscriptas();
+        jbInscribir.setEnabled(true);
+        jbBorrar.setEnabled(false);
+    }                                               
+
+    private void jbInscribirActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        int filaSeleccionada = jtTabla.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            Alumno a = (Alumno) jcbAlumno.getSelectedItem();
+            int idMateria = (Integer) modelo.getValueAt(filaSeleccionada, 0);
+            String nombreMateria = (String) modelo.getValueAt(filaSeleccionada, 1);
+            int anio = (Integer) modelo.getValueAt(filaSeleccionada, 2);
+            Materia m = new Materia(idMateria, nombreMateria, anio, true);
+
+            Inscripcion i = new Inscripcion(a, m, 0);
+            inscData.guardarInscripcion(i);
+            borrarFilaTabla();
+
+        }
+
+    }                                           
+
+    private void jbBorrarActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        // TODO add your handling code here:
+        int filaSeleccionada = jtTabla.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            Alumno a = (Alumno) jcbAlumno.getSelectedItem();
+            int idMateria = (Integer) modelo.getValueAt(filaSeleccionada, 0);        
+            inscData.borrarInscripcionMateriaAlumno(a.getIdAlumno(), idMateria);
+            borrarFilaTabla();
+        }
+    }                                        
+private void cargaAlumnos() {
+        for (Alumno item : listaA) {
+            jcbAlumno.addItem(item);
+        }
+    }
+
+    private void armarCabeceraTabla() {
+        ArrayList<Object> filaCabecera = new ArrayList<>();
+        filaCabecera.add("ID");
+        filaCabecera.add("Nombre");
+        filaCabecera.add("Año");
+        for (Object it : filaCabecera) {
+            modelo.addColumn(it);
+        }
+        jtTabla.setModel(modelo);
+    }
+
+    private void borrarFilaTabla() {
+        int indice = modelo.getRowCount() - 1;
+        for (int i = indice; i >= 0; i--) {
+            modelo.removeRow(i);
+        }
+    }
+
+    private void cargaDatosNoInscriptas() {
+        //borrarFilasTabla();
+        Alumno selec = (Alumno) jcbAlumno.getSelectedItem();
+        listaM = (ArrayList) inscData.obtenerMateriasNOCursadas(selec.getIdAlumno());
+        for (Materia m : listaM) {
+            modelo.addRow(new Object[]{m.getIdMateria(), m.getNombre(), m.getAnioMateria()});
+        }
+    }
+
+    private void cargaDatosInscriptas() {
+        //borrarFilasTabla();
+        Alumno selec = (Alumno) jcbAlumno.getSelectedItem();
+        listaM = (ArrayList) inscData.obtenerMateriasCursadas(selec.getIdAlumno());
+        for (Materia m : listaM) {
+            modelo.addRow(new Object[]{m.getIdMateria(), m.getNombre(), m.getAnioMateria()});
+        }
+    }                     
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -160,7 +266,7 @@ public class FormularioInscripcionesView extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbBorrar;
     private javax.swing.JButton jbInscribir;
     private javax.swing.JButton jbSalir;
-    private javax.swing.JComboBox<String> jcbAlumno;
+    private javax.swing.JComboBox<Alumno> jcbAlumno;
     private javax.swing.JLabel jlAlumno;
     private javax.swing.JLabel jlFormulario;
     private javax.swing.JRadioButton jrbMInscriptas;

@@ -80,9 +80,9 @@ public class Alumno {
         this.activo = activo;
     }
 
-    @Override
+  @Override
     public String toString() {
-        return "Alumno{" + "idAlumno=" + idAlumno + ", apellido=" + apellido + ", nombre=" + nombre + '}';
+        return dni + ", "+ apellido+", "+nombre;
     }
 
     

@@ -16,7 +16,6 @@ public class UniversidadGrupo10 {
     public static void main(String[] args) {
 
 //        Connection con = Conexion.getConexion();
-        System.out.println("commit de prueba. no le den bola");
         AlumnoData alu = new AlumnoData();
         MateriaData mate = new MateriaData();
         InscripcionData id = new InscripcionData();
