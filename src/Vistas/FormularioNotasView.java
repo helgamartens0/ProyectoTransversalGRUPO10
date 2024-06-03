@@ -194,10 +194,7 @@ public class FormularioNotasView extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Nota inválida para la materia " + nombreMateria);
             continue;
         }
-
-        
     }
-
     JOptionPane.showMessageDialog(this, "Notas actualizadas exitosamente.");
 
     }//GEN-LAST:event_jbGuardarActionPerformed
