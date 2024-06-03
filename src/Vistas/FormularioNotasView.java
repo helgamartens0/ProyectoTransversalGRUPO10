@@ -81,7 +81,9 @@ public class FormularioNotasView extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        jtTabla.setColumnSelectionAllowed(true);
         jScrollPane1.setViewportView(jtTabla);
+        jtTabla.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         jbGuardar.setText("GUARDAR");
         jbGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -175,10 +177,9 @@ public class FormularioNotasView extends javax.swing.JInternalFrame {
         int cantF = jtTabla.getRowCount();
 
         for (int i = 0; i < cantF; i++) {
-            int idMateria = (Integer) jtTabla.getValueAt(i, 0);
-            String nombreMateria = (String) jtTabla.getValueAt(i, 1);
+            int idMateria = Integer.parseInt(jtTabla.getValueAt(i, 0).toString());
+            String nombreMateria = (jtTabla.getValueAt(i, 1)).toString();
             Double nota = null;
-
             try {
                 nota = Double.parseDouble(jtTabla.getValueAt(i, 2).toString());
                 System.out.println("Actualizando nota: Alumno ID: " + selec.getIdAlumno() + ", Materia ID: " + idMateria + ", Nota: " + nota);
