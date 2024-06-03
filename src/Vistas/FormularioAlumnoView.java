@@ -47,7 +47,6 @@ public class FormularioAlumnoView extends javax.swing.JInternalFrame {
         jrbEstado = new javax.swing.JRadioButton();
         jdcFechaNac = new com.toedter.calendar.JDateChooser();
 
-        setClosable(true);
         setTitle("Alumno");
 
         jlAlumno.setFont(new java.awt.Font("Dubai Medium", 3, 18)); // NOI18N

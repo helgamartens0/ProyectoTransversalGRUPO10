@@ -5,17 +5,39 @@
  */
 package Vistas;
 
+import AccesoADatos.AlumnoData;
+import AccesoADatos.InscripcionData;
+import AccesoADatos.MateriaData;
+import Entidades.Alumno;
+import Entidades.Materia;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author busto
  */
 public class FormularioNotasView extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form FormularioNotasView
-     */
+    private List<Alumno> listaA;
+    private List<Materia> listaM;
+
+    private InscripcionData inscData;
+    private AlumnoData aData;
+    private MateriaData mData;
+
+    private DefaultTableModel modelo;
+
     public FormularioNotasView() {
         initComponents();
+        aData = new AlumnoData();
+        listaA = aData.listarAlumnos();
+        modelo = new DefaultTableModel();
+
+        cargaAlumnos();
+        armarCabeceraTabla();
     }
 
     /**
@@ -35,7 +57,6 @@ public class FormularioNotasView extends javax.swing.JInternalFrame {
         jcbAlumno = new javax.swing.JComboBox<>();
         jlCargaDeNotas = new javax.swing.JLabel();
 
-        setClosable(true);
         setTitle("Carga de Notas");
 
         jtTabla.setModel(new javax.swing.table.DefaultTableModel(
@@ -73,7 +94,11 @@ public class FormularioNotasView extends javax.swing.JInternalFrame {
         jlAlumno.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlAlumno.setText("Alumno");
 
-        jcbAlumno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbAlumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbAlumnoActionPerformed(evt);
+            }
+        });
 
         jlCargaDeNotas.setFont(new java.awt.Font("Dubai Medium", 3, 18)); // NOI18N
         jlCargaDeNotas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -108,7 +133,7 @@ public class FormularioNotasView extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
+                .addContainerGap(16, Short.MAX_VALUE)
                 .addComponent(jlCargaDeNotas)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -131,14 +156,76 @@ public class FormularioNotasView extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jbSalirMouseClicked
 
+    private void jcbAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbAlumnoActionPerformed
+        // TODO add your handling code here:     
+        borrarFilaTabla();
+        cargaDatosInscriptas();
+    
+    }//GEN-LAST:event_jcbAlumnoActionPerformed
+    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+        Alumno selec = (Alumno) jcbAlumno.getSelectedItem();
+        listaM = (ArrayList) inscData.obtenerMateriasCursadas(selec.getIdAlumno());
+        modelo.setRowCount(0);
+        for (Materia m : listaM) {
+            modelo.addRow(new Object[]{m.getIdMateria(), m.getNombre()});
+        }
+
+        int cantF = jtTabla.getRowCount();
+        for (int i = 0; i < cantF; i++) {
+            int idMateria = (Integer) jtTabla.getValueAt(i, 0);
+            String nombreMateria = (String) jtTabla.getValueAt(i, 1);
+            Double nota = null;
+            try {
+                nota = Double.valueOf(jtTabla.getValueAt(i, 2).toString());
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Nota invalida para la materia " + nombreMateria);
+            }
+            inscData.actualizarNota(selec.getIdAlumno(), idMateria, nota);
+        }
+        JOptionPane.showMessageDialog(null, "Notas actualizadas exitosamente.");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbSalir;
-    private javax.swing.JComboBox<String> jcbAlumno;
+    private javax.swing.JComboBox<Alumno> jcbAlumno;
     private javax.swing.JLabel jlAlumno;
     private javax.swing.JLabel jlCargaDeNotas;
     private javax.swing.JTable jtTabla;
     // End of variables declaration//GEN-END:variables
+
+    private void cargaAlumnos() {
+        for (Alumno item : listaA) {
+            jcbAlumno.addItem(item);
+        }
+    }
+
+    private void armarCabeceraTabla() {
+        ArrayList<Object> filaCabecera = new ArrayList<>();
+        filaCabecera.add("Codigo");
+        filaCabecera.add("Nombre");
+        filaCabecera.add("Nota");
+        for (Object it : filaCabecera) {
+            modelo.addColumn(it);
+        }
+        jtTabla.setModel(modelo);
+    }
+
+    private void cargaDatosInscriptas() {
+        //borrarFilasTabla();
+        Alumno selec = (Alumno) jcbAlumno.getSelectedItem();
+        listaM = (ArrayList) inscData.obtenerMateriasCursadas(selec.getIdAlumno());
+        for (Materia m : listaM) {
+            modelo.addRow(new Object[]{m.getIdMateria(), m.getNombre(), m.getAnioMateria()});
+        }
+    }
+
+    private void borrarFilaTabla() {
+        int indice = modelo.getRowCount() - 1;
+        for (int i = indice; i >= 0; i--) {
+            modelo.removeRow(i);
+        }
+    }
 }

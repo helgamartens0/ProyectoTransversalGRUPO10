@@ -15,10 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
-
 public class FormularioInscripcionesView extends javax.swing.JInternalFrame {
 
-     private List<Materia> listaM;
+    private List<Materia> listaM;
     private List<Alumno> listaA;
 
     private InscripcionData inscData;
@@ -29,14 +28,16 @@ public class FormularioInscripcionesView extends javax.swing.JInternalFrame {
 
     public FormularioInscripcionesView() {
         initComponents();
-
+        
+        inscData = new InscripcionData();
+        mData = new MateriaData();
         aData = new AlumnoData();
+
         listaA = aData.listarAlumnos();
         modelo = new DefaultTableModel();
         cargaAlumnos();
         armarCabeceraTabla();
-    } 
-   
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -59,7 +60,6 @@ public class FormularioInscripcionesView extends javax.swing.JInternalFrame {
         jrbMInscriptas = new javax.swing.JRadioButton();
         jrbNoInscriptas = new javax.swing.JRadioButton();
 
-        setClosable(true);
         setTitle("Formulario de Inscripcion");
 
         jlFormulario.setFont(new java.awt.Font("Dubai Medium", 3, 18)); // NOI18N
@@ -73,6 +73,12 @@ public class FormularioInscripcionesView extends javax.swing.JInternalFrame {
         lbListadoMaterias.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lbListadoMaterias.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbListadoMaterias.setText("Listado de Materias");
+
+        jcbAlumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbAlumnoActionPerformed(evt);
+            }
+        });
 
         jtTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -173,25 +179,40 @@ public class FormularioInscripcionesView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jbSalirMouseClicked
- private void jrbMInscriptasActionPerformed(java.awt.event.ActionEvent evt) {                                               
+
+    private void jcbAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbAlumnoActionPerformed
+        // TODO add your handling code here:     
+        if (jrbMInscriptas.isSelected()) {
+            borrarFilaTabla();
+            cargaDatosInscriptas();
+            jbBorrar.setEnabled(true);
+            jbInscribir.setEnabled(false);
+        } else if (jrbNoInscriptas.isSelected()) {
+            borrarFilaTabla();
+            cargaDatosNoInscriptas();
+            jbInscribir.setEnabled(true);
+            jbBorrar.setEnabled(false);
+        }
+    }//GEN-LAST:event_jcbAlumnoActionPerformed
+    private void jrbMInscriptasActionPerformed(java.awt.event.ActionEvent evt) {
 
         borrarFilaTabla();
         jrbNoInscriptas.setSelected(false);
         cargaDatosInscriptas();
         jbBorrar.setEnabled(true);
         jbInscribir.setEnabled(false);
-    }                                              
+    }
 
-    private void jrbNoInscriptasActionPerformed(java.awt.event.ActionEvent evt) {                                                
+    private void jrbNoInscriptasActionPerformed(java.awt.event.ActionEvent evt) {
 
         borrarFilaTabla();
         jrbMInscriptas.setSelected(false);
         cargaDatosNoInscriptas();
         jbInscribir.setEnabled(true);
         jbBorrar.setEnabled(false);
-    }                                               
+    }
 
-    private void jbInscribirActionPerformed(java.awt.event.ActionEvent evt) {                                            
+    private void jbInscribirActionPerformed(java.awt.event.ActionEvent evt) {
         int filaSeleccionada = jtTabla.getSelectedRow();
         if (filaSeleccionada != -1) {
             Alumno a = (Alumno) jcbAlumno.getSelectedItem();
@@ -206,19 +227,20 @@ public class FormularioInscripcionesView extends javax.swing.JInternalFrame {
 
         }
 
-    }                                           
+    }
 
-    private void jbBorrarActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void jbBorrarActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         int filaSeleccionada = jtTabla.getSelectedRow();
         if (filaSeleccionada != -1) {
             Alumno a = (Alumno) jcbAlumno.getSelectedItem();
-            int idMateria = (Integer) modelo.getValueAt(filaSeleccionada, 0);        
+            int idMateria = (Integer) modelo.getValueAt(filaSeleccionada, 0);
             inscData.borrarInscripcionMateriaAlumno(a.getIdAlumno(), idMateria);
             borrarFilaTabla();
         }
-    }                                        
-private void cargaAlumnos() {
+    }
+
+    private void cargaAlumnos() {
         for (Alumno item : listaA) {
             jcbAlumno.addItem(item);
         }
@@ -258,7 +280,7 @@ private void cargaAlumnos() {
         for (Materia m : listaM) {
             modelo.addRow(new Object[]{m.getIdMateria(), m.getNombre(), m.getAnioMateria()});
         }
-    }                     
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
