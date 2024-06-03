@@ -171,34 +171,35 @@ public class FormularioNotasView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jcbAlumnoActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-       Alumno selec = (Alumno) jcbAlumno.getSelectedItem();
-    int cantF = jtTabla.getRowCount();
+        Alumno selec = (Alumno) jcbAlumno.getSelectedItem();
+        int cantF = jtTabla.getRowCount();
 
-    for (int i = 0; i < cantF; i++) {
-        int idMateria = (Integer) jtTabla.getValueAt(i, 0);
-        String nombreMateria = (String) jtTabla.getValueAt(i, 1);
-        Double nota = null;
+        for (int i = 0; i < cantF; i++) {
+            int idMateria = (Integer) jtTabla.getValueAt(i, 0);
+            String nombreMateria = (String) jtTabla.getValueAt(i, 1);
+            Double nota = null;
 
-        try {
-            nota = Double.parseDouble(jtTabla.getValueAt(i, 2).toString());
-            if (nota != null) {
-            System.out.println("Actualizando nota: Alumno ID: " + selec.getIdAlumno() + ", Materia ID: " + idMateria + ", Nota: " + nota);
-            boolean actualizado = inscData.actualizarNota(selec.getIdAlumno(), idMateria, nota);
-            if (!actualizado) {
-                JOptionPane.showMessageDialog(this, "Error al actualizar la nota de la materia " + nombreMateria);
-            } else {
-                System.out.println("Nota actualizada exitosamente.");
-            }
+            try {
+                nota = Double.parseDouble(jtTabla.getValueAt(i, 2).toString());
+                System.out.println("Actualizando nota: Alumno ID: " + selec.getIdAlumno() + ", Materia ID: " + idMateria + ", Nota: " + nota);
+                boolean actualizado = inscData.actualizarNota(selec.getIdAlumno(), idMateria, nota);
+                if (!actualizado) {
+                    JOptionPane.showMessageDialog(this, "Error al actualizar la nota de la materia " + nombreMateria);
+                } else {
+                    System.out.println("Nota actualizada exitosamente.");
+                }
+
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Nota inválida para la materia " + nombreMateria);
+                continue;
+            } 
+            inscData.actualizarNotas(selec.getIdAlumno(),idMateria,nota);
         }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Nota inválida para la materia " + nombreMateria);
-            continue;
-        }
-    }
-    JOptionPane.showMessageDialog(this, "Notas actualizadas exitosamente.");
+      
+        JOptionPane.showMessageDialog(this, "Notas actualizadas exitosamente.");
 
     }//GEN-LAST:event_jbGuardarActionPerformed
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
@@ -227,18 +228,18 @@ public class FormularioNotasView extends javax.swing.JInternalFrame {
         jtTabla.setModel(modelo);
     }
 
-private void cargaDatosInscriptas() {
-    
-    try {
-        Alumno selec = (Alumno) jcbAlumno.getSelectedItem();
-        listaI = inscData.obtenerInscripcionesPorAlumno(selec.getIdAlumno());
-        for (Inscripcion insc : listaI) {
-            modelo.addRow(new Object[]{insc.getMateria().getIdMateria(), insc.getMateria().getNombre(), insc.getNota()});
+    private void cargaDatosInscriptas() {
+
+        try {
+            Alumno selec = (Alumno) jcbAlumno.getSelectedItem();
+            listaI = inscData.obtenerInscripcionesPorAlumno(selec.getIdAlumno());
+            for (Inscripcion insc : listaI) {
+                modelo.addRow(new Object[]{insc.getMateria().getIdMateria(), insc.getMateria().getNombre(), insc.getNota()});
+            }
+        } catch (Exception e) {
+            System.out.println(e);
         }
-    } catch (Exception e) {
-        System.out.println(e);
-    }
-        
+
     }
 
     private void borrarFilaTabla() {
