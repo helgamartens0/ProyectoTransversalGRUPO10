@@ -74,7 +74,7 @@ public class FormularioNotasView extends javax.swing.JInternalFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -181,12 +181,7 @@ public class FormularioNotasView extends javax.swing.JInternalFrame {
 
         try {
             nota = Double.parseDouble(jtTabla.getValueAt(i, 2).toString());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Nota inválida para la materia " + nombreMateria);
-            continue;
-        }
-
-        if (nota != null) {
+            if (nota != null) {
             System.out.println("Actualizando nota: Alumno ID: " + selec.getIdAlumno() + ", Materia ID: " + idMateria + ", Nota: " + nota);
             boolean actualizado = inscData.actualizarNota(selec.getIdAlumno(), idMateria, nota);
             if (!actualizado) {
@@ -195,6 +190,12 @@ public class FormularioNotasView extends javax.swing.JInternalFrame {
                 System.out.println("Nota actualizada exitosamente.");
             }
         }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Nota inválida para la materia " + nombreMateria);
+            continue;
+        }
+
+        
     }
 
     JOptionPane.showMessageDialog(this, "Notas actualizadas exitosamente.");
