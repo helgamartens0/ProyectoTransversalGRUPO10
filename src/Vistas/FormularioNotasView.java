@@ -21,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FormularioNotasView extends javax.swing.JInternalFrame {
 
-     private List<Alumno> listaA;
+    private List<Alumno> listaA;
     private List<Materia> listaM;
 
     private InscripcionData inscData;
@@ -32,7 +32,7 @@ public class FormularioNotasView extends javax.swing.JInternalFrame {
 
     public FormularioNotasView() {
         initComponents();
-          aData = new AlumnoData();
+        aData = new AlumnoData();
         listaA = aData.listarAlumnos();
         modelo = new DefaultTableModel();
 
@@ -94,6 +94,12 @@ public class FormularioNotasView extends javax.swing.JInternalFrame {
         jlAlumno.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlAlumno.setText("Alumno");
 
+        jcbAlumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbAlumnoActionPerformed(evt);
+            }
+        });
+
         jlCargaDeNotas.setFont(new java.awt.Font("Dubai Medium", 3, 18)); // NOI18N
         jlCargaDeNotas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlCargaDeNotas.setText("CARGA DE NOTAS");
@@ -149,29 +155,36 @@ public class FormularioNotasView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jbSalirMouseClicked
-    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {                                          
+
+    private void jcbAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbAlumnoActionPerformed
+        // TODO add your handling code here:     
+        borrarFilaTabla();
+        cargaDatosInscriptas();
+    
+    }//GEN-LAST:event_jcbAlumnoActionPerformed
+    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         Alumno selec = (Alumno) jcbAlumno.getSelectedItem();
         listaM = (ArrayList) inscData.obtenerMateriasCursadas(selec.getIdAlumno());
-        modelo.setRowCount(0); 
-        for(Materia m : listaM){
-            modelo.addRow(new Object[]{m.getIdMateria(),m.getNombre()});
+        modelo.setRowCount(0);
+        for (Materia m : listaM) {
+            modelo.addRow(new Object[]{m.getIdMateria(), m.getNombre()});
         }
-        
+
         int cantF = jtTabla.getRowCount();
-        for(int i=0 ; i<cantF; i++){
-            int idMateria = (Integer)jtTabla.getValueAt(i,0);
-            String nombreMateria = (String)jtTabla.getValueAt(i,1);
+        for (int i = 0; i < cantF; i++) {
+            int idMateria = (Integer) jtTabla.getValueAt(i, 0);
+            String nombreMateria = (String) jtTabla.getValueAt(i, 1);
             Double nota = null;
-            try{
-                nota = Double.valueOf(jtTabla.getValueAt(i,2).toString());
-            }catch(NumberFormatException e){
-                JOptionPane.showMessageDialog(this,"Nota invalida para la materia "+nombreMateria);
+            try {
+                nota = Double.valueOf(jtTabla.getValueAt(i, 2).toString());
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Nota invalida para la materia " + nombreMateria);
             }
             inscData.actualizarNota(selec.getIdAlumno(), idMateria, nota);
         }
         JOptionPane.showMessageDialog(null, "Notas actualizadas exitosamente.");
-    }  
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
@@ -198,5 +211,21 @@ public class FormularioNotasView extends javax.swing.JInternalFrame {
             modelo.addColumn(it);
         }
         jtTabla.setModel(modelo);
+    }
+
+    private void cargaDatosInscriptas() {
+        //borrarFilasTabla();
+        Alumno selec = (Alumno) jcbAlumno.getSelectedItem();
+        listaM = (ArrayList) inscData.obtenerMateriasCursadas(selec.getIdAlumno());
+        for (Materia m : listaM) {
+            modelo.addRow(new Object[]{m.getIdMateria(), m.getNombre(), m.getAnioMateria()});
+        }
+    }
+
+    private void borrarFilaTabla() {
+        int indice = modelo.getRowCount() - 1;
+        for (int i = indice; i >= 0; i--) {
+            modelo.removeRow(i);
+        }
     }
 }
