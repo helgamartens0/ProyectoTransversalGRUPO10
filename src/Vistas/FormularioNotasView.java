@@ -194,7 +194,6 @@ public class FormularioNotasView extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Nota inválida para la materia " + nombreMateria);
                 continue;
             } 
-            inscData.actualizarNotas(selec.getIdAlumno(),idMateria,nota);
         }
       
         JOptionPane.showMessageDialog(this, "Notas actualizadas exitosamente.");

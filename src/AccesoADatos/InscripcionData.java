@@ -200,23 +200,7 @@ public class InscripcionData {
             return false;
         }
     }
-  public void actualizarNotas(int idAlumno, int idMateria, double nota) {
 
-        String sql = "UPDATE inscripcion SET nota = ? WHERE idAlumno = ? AND idMateria = ?";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setDouble(1, nota);
-            ps.setInt(2, idAlumno);
-            ps.setInt(3, idMateria);
-            int resultado = ps.executeUpdate();
-            System.out.println("Resultado de la actualización: " + resultado); // Debería ser mayor que 0
-           
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla inscripcion. " + ex.getMessage());
-            ex.printStackTrace();
-            
-        }
-    }
     public List<Alumno> obtenerAlumnosXMateria(int idMateria) {
 
         ArrayList<Alumno> alumnosMateria = new ArrayList<>();
