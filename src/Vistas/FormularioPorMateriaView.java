@@ -34,7 +34,6 @@ public class FormularioPorMateriaView extends javax.swing.JInternalFrame {
         jtTabla = new javax.swing.JTable();
         jbSalir = new javax.swing.JButton();
 
-        setClosable(true);
         setTitle("Listado de Alumnos por Materia");
 
         jLabel1.setFont(new java.awt.Font("Dubai Medium", 3, 18)); // NOI18N

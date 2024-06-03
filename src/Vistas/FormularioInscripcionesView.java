@@ -59,7 +59,6 @@ public class FormularioInscripcionesView extends javax.swing.JInternalFrame {
         jrbMInscriptas = new javax.swing.JRadioButton();
         jrbNoInscriptas = new javax.swing.JRadioButton();
 
-        setClosable(true);
         setTitle("Formulario de Inscripcion");
 
         jlFormulario.setFont(new java.awt.Font("Dubai Medium", 3, 18)); // NOI18N
